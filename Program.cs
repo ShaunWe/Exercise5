@@ -311,6 +311,7 @@ namespace Exercise5
 
         public static string DetermineAction(string winner, string loser)
         {
+            //This method outputs the action the winner uses against the loser
             string action = "";
             switch (winner)
             {
