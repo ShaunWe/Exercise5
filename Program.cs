@@ -18,7 +18,7 @@ namespace Exercise5
              * Exercise 5: Rock, Paper, Scissors, Lizard, Spock
              */
 
-            string inputLine, playerChoice = "", computerChoice, resultString = "";
+            string inputLine, playerChoice = "", computerChoice =  "", resultString = "";
             int gameCount, gamePlayerWins, gameTies, gameComputerWins, result;
             bool programRunning = true, selectionMade;
 
@@ -33,7 +33,7 @@ namespace Exercise5
                 while (gameCount < 10)
                 {
                     Console.Clear();
-                    Console.WriteLine($"Game {gameCount+1}" +
+                    Console.WriteLine($"Game {gameCount+1}\n" +
                         "Which do you choose:\n" +
                         "1. Rock\n" +
                         "2. Paper\n" +
