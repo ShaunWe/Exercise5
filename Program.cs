@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercise5
 {
@@ -22,16 +18,20 @@ namespace Exercise5
             int gameCount, gamePlayerWins, gameTies, gameComputerWins, result;
             bool programRunning = true, selectionMade;
 
+            //Loop until selection is made to stop looping
             while (programRunning)
             {
+                //Reset all values to start loop
                 gameCount = 0;
                 gamePlayerWins = 0;
                 gameTies = 0;
                 gameComputerWins = 0;
                 selectionMade = false;
 
+                //Loop for 10 games
                 while (gameCount < 10)
                 {
+                    //Clear screen and display menu asking for user input
                     Console.Clear();
                     Console.WriteLine($"Game {gameCount+1}\n" +
                         "Which do you choose:\n" +
@@ -43,6 +43,7 @@ namespace Exercise5
                     Console.Write("Selection: ");
                     inputLine = Console.ReadLine().ToLower();
 
+                    //Standardize player input for use later
                     switch (inputLine)
                     {
                         case "1":
@@ -76,11 +77,14 @@ namespace Exercise5
                             break;
                     }
 
+                    //Only runs if a selection was made, ensuring that games are not added when invalid input is recieved
                     if (selectionMade)
                     {
+                        //Calls to methods to get computer choice and the result of the match
                         computerChoice = DetermineComputerChoice();
                         result = DetermineResult(playerChoice, computerChoice);
 
+                        //Despending on result value, increment appropriate variable and set resultString variable to display result to user
                         switch (result)
                         {
                             case -1:
@@ -102,13 +106,17 @@ namespace Exercise5
                                 break;
                         }
 
+                        //Tell user the choice they made and the computer was determined to have made, then display resultString to inform user of result
                         Console.WriteLine($"Player chose {playerChoice}\n" +
                             $"Computer chose {computerChoice}\n" +
                             $"{resultString}");
                         Utility.KeyToProceed();
+
+                        //Increment game count to indicate game was successfully completed
                         gameCount++;
                     }
 
+                    //Once game count is 10, display wins, losses, and ties and ask user if they want to play again
                     if (gameCount >= 10)
                     {
                         Console.Clear();
@@ -118,6 +126,8 @@ namespace Exercise5
                         Console.WriteLine("Would you like to play again?");
                         Console.Write("Y/N: ");
                         inputLine = Console.ReadLine().ToLower();
+
+                        //Ensures valid input from user
                         while (!(inputLine == "y" || inputLine == "n" || inputLine == "yes" || inputLine == "no"))
                         {
                             Console.WriteLine("That is not a recognized answer. Please enter either (y)es or (n)o.");
@@ -125,6 +135,7 @@ namespace Exercise5
                             inputLine = Console.ReadLine().ToLower();
                         }
 
+                        //Set programRunning variable based on user input
                         switch (inputLine)
                         {
                             case "y":
@@ -145,15 +156,22 @@ namespace Exercise5
 
         public static string DetermineComputerChoice()
         {
+            //Creates random variable and increments static rand variable
             rand++;
             Random random = new Random();
             int value = 0;
             string compChoice = "";
+
+            //Ensures unique random number each time method is called
             for (int i = 0; i < rand; i++)
             {
                 value = random.Next();
             }
+
+            //Mod 5 allows only 5 results to be possible, regardless of random integer chosen
             value = value % 5;
+
+            //Determine return value based on mod 5 value
             switch (value)
             {
                 case 0:
@@ -180,6 +198,7 @@ namespace Exercise5
 
         public static int DetermineResult(string player, string computer)
         {
+            //This takes in the choices of the player and computer and returns integer indicating result
             int result = 0;
             switch (player)
             {
