@@ -14,7 +14,7 @@ namespace Exercise5
              * Exercise 5: Rock, Paper, Scissors, Lizard, Spock
              */
 
-            string inputLine, playerChoice = "", computerChoice =  "", resultString = "";
+            string inputLine, playerChoice = "", computerChoice =  "", resultString = "", resultAction = "";
             int gameCount, gamePlayerWins, gameTies, gameComputerWins, result;
             bool programRunning = true, selectionMade;
 
@@ -106,10 +106,21 @@ namespace Exercise5
                                 break;
                         }
 
+                        if (result != 0)
+                        {
+                            if (result == 1) { resultAction = DetermineAction(playerChoice, computerChoice); }
+                            if (result == -1) { resultAction = DetermineAction(computerChoice, playerChoice); }
+                        }
+
                         //Tell user the choice they made and the computer was determined to have made, then display resultString to inform user of result
-                        Console.WriteLine($"Player chose {playerChoice}\n" +
-                            $"Computer chose {computerChoice}\n" +
-                            $"{resultString}");
+                        Console.WriteLine($"\nPlayer chose {playerChoice.ToUpper()}\n" +
+                            $"Computer chose {computerChoice.ToUpper()}\n");
+                        if (result != 0)
+                        {
+                            if (result == 1) { Console.WriteLine($"{playerChoice.ToUpper()} {resultAction} {computerChoice.ToUpper()}"); }
+                            if (result == -1) { Console.WriteLine($"{computerChoice.ToUpper()} {resultAction} {playerChoice.ToUpper()}"); }
+                        }
+                        Console.WriteLine(resultString);
                         Utility.KeyToProceed();
 
                         //Increment game count to indicate game was successfully completed
@@ -296,6 +307,37 @@ namespace Exercise5
                     break;
             }
             return result;
+        }
+
+        public static string DetermineAction(string winner, string loser)
+        {
+            string action = "";
+            switch (winner)
+            {
+                case "rock":
+                    action = "crushes";
+                    break;
+                case "scissors":
+                    if (loser == "lizard") { action = "decapitates"; }
+                    if (loser == "paper") { action = "cuts"; }
+                    break;
+                case "paper":
+                    if (loser == "spock") { action = "disproves"; }
+                    if (loser == "rock") { action = "covers"; }
+                    break;
+                case "lizard":
+                    if (loser == "spock") { action = "poisons"; }
+                    if (loser == "paper") { action = "eats"; }
+                    break;
+                case "spock":
+                    if (loser == "rock") { action = "vaporizes"; }
+                    if (loser == "scissors") { action = "smashes"; }
+                    break;
+                default:
+                    action = "defeats";
+                    break;
+            }
+            return action;
         }
     }
 }
